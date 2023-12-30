@@ -19,6 +19,7 @@ jobs:
           - macos
           - win
     steps:
+      - uses: actions/setup-node@v2
       - name: Package into node binary
         uses: lando/pkg-action@v2
         with:
