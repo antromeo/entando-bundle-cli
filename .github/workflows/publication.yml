@@ -29,8 +29,8 @@ jobs:
       - name: Package into node binary
         uses: lando/pkg-action@v4.0.0
         with:
-          config: 
-          entrypoint: .
+          config: package.json
+          entrypoint: bin/run
           arch: ${{ matrix.arch }}
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
