@@ -6,20 +6,24 @@ on:
       - 'v*'
 jobs:
   binaries:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         arch:
           - x64
           - arm64
         node-version:
-          - 16
+          - 14.x
         os:
           - linux
           - macos
           - win
     steps:
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Package into node binary
         uses: lando/pkg-action@v2
         with:
