@@ -1,9 +1,9 @@
 name: PUB
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
+
 jobs:
   binaries:
     runs-on: ubuntu-latest
@@ -27,6 +27,7 @@ jobs:
       - name: Build
         run: npm install && npm run-script build
       - name: Package into node binary
+        id: package
         uses: lando/pkg-action@v4.0.0
         with:
           config: package.json
@@ -34,3 +35,13 @@ jobs:
           arch: ${{ matrix.arch }}
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
+          upload: false
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ steps.package.outputs.file }}
+          asset_name: ${{ steps.package.outputs.artifact-key }}
+          asset_content_type: application/zip
