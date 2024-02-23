@@ -13,7 +13,7 @@ jobs:
           - x64
           - arm64
         node-version:
-          - 14.x
+          - 14
         os:
           - linux
           - macos
