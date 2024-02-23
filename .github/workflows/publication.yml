@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Package into node binary
-        uses: lando/pkg-action@v2
+        uses: lando/pkg-action@v4.0.0
         with:
           entrypoint: bin/run
           arch: ${{ matrix.arch }}
